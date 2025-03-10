@@ -5,6 +5,7 @@ import ResultPoll from './Pages/Result Poll/ResultPoll'
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import VibeNavbar from './Pages/Header/VibeNavbar';
 import Protected from './Pages/Protected';
+import LandingPage from './Pages/LandingPage/LandingPage';
 
 function App() {
 
@@ -13,10 +14,9 @@ function App() {
     <>
 
       <Router>
-        <VibeNavbar />
+        {/* <VibeNavbar /> */}
         <Routes>
-          {/* <Route element={<VibeNavbar />} /> */}
-          <Route path="/" element={<Protected />} />
+          <Route path="/" element={<LandingPage />} />
           <Route path="poll/create" element={
             <Protected>
               <CreatePoll />
