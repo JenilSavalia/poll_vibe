@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { use, useEffect, useState } from 'react'
 import { Button } from "@/components/ui/button"
 import { ArrowRight } from 'lucide-react';
 import { Label } from "@/components/ui/label"
@@ -13,11 +13,15 @@ import ShareComponent from './ShareComponent'
 import { GenericCheckboxGroup } from '../../Generic_Components/GenericCheckboxGroup';
 import { Input } from "@/components/ui/input"
 import PollComment from './PollComment';
+import { useUser } from '@clerk/clerk-react';
+
 
 
 
 const SharePoll = () => {
 
+  const { isSignedIn, user } = useUser();
+  console.log(isSignedIn, user)
 
   const [PollData, setPollData] = useState();
 

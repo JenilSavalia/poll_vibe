@@ -93,7 +93,6 @@ app.post('/api/webhook', bodyParser.raw({ type: 'application/json' }), async (re
 app.use(express.json());
 
 const clerkPubKey = process.env.CLERK_PUBLISHABLE_KEY;
-console.log(clerkPubKey)
 
 // Middleware to verify authentication
 const requireAuth = ClerkExpressRequireAuth();
@@ -112,13 +111,21 @@ app.get('/protected', requireAuth, (req, res) => {
 // Create a new poll
 app.post('/poll', async (req, res) => {
 
-    const { poll_details, Created_by, endDate, poll_settings } = req.body;
 
-    if (!poll_details || !Created_by || !poll_details.poll_options || !endDate || !poll_settings) {
-        return res.status(400).json({ error: 'poll_details and Created_by are required, and poll_details must contain poll_options' });
+
+    const { poll_details, ClerkID, endDate, poll_settings } = req.body;
+
+    if (!poll_details || !poll_details.poll_options || !endDate || !poll_settings) {
+        return res.status(400).json({ error: 'poll_details and ClerkID are required, and poll_details must contain array of poll_options' });
     }
 
     try {
+
+        const FindUserByClerkID = await User.find({ clerkUserId: ClerkID })
+
+        const Created_by = FindUserByClerkID[0]._id
+        // console.log(FindUserByClerkID[0]._id)
+
         const NewPoll = new PollDetail({ endDate, poll_details, poll_settings, Created_by });
         await NewPoll.save();
 

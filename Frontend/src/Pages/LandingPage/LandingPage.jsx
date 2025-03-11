@@ -2,9 +2,11 @@ import React, { useEffect } from 'react';
 import { Vote, BarChart3, Users, Lock, Share2, Clock, Activity, CheckCircle2, Zap, Shield, Globe2 } from 'lucide-react';
 import '../../index.css'
 import { SignedIn, SignedOut, SignInButton, UserButton } from '@clerk/clerk-react'
+import { Link } from 'react-router-dom';
 
 
-function NavBar() {
+
+export function NavBar() {
     return (
         <nav className="fixed w-full z-50 bg-black/10 backdrop-blur-lg border-b border-white/10">
             <div className="container mx-auto px-4">
@@ -16,9 +18,13 @@ function NavBar() {
                         </span>
                     </div>
                     <div className="hidden md:flex items-center space-x-8 animate-slide-down">
-                        <a href="#features" className="text-gray-300 hover:text-white transition-colors hover:scale-105 transform">Features</a>
-                        <a href="#how-it-works" className="text-gray-300 hover:text-white transition-colors hover:scale-105 transform">How It Works</a>
-                        <a href="#pricing" className="text-gray-300 hover:text-white transition-colors hover:scale-105 transform">Pricing</a>
+                        <Link to="/poll/create">
+                            <a href="#features" className="text-gray-300 hover:text-white transition-colors hover:scale-105 transform">Create Poll</a>
+                        </Link>
+                        <Link to={"/"}>
+                            <a href="#how-it-works" className="text-gray-300 hover:text-white transition-colors hover:scale-105 transform">How It Works</a>
+                        </Link>
+                        <a href="#pricing" className="text-gray-300 hover:text-white transition-colors hover:scale-105 transform">My Polls</a>
                         <SignedOut>
                             <SignInButton
                                 className="bg-white/10 backdrop-blur-sm text-white px-6 py-2 rounded-full hover:bg-white/20 transition-all hover:scale-105 transform"

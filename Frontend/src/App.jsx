@@ -14,13 +14,13 @@ function App() {
     <>
 
       <Router>
-        {/* <VibeNavbar /> */}
         <Routes>
           <Route path="/" element={<LandingPage />} />
+          
           <Route path="poll/create" element={
-            <Protected>
+            // <Protected>
               <CreatePoll />
-            </Protected>
+            // </Protected>
           } />
           <Route path="/poll/:poll_id" element={<SharePoll />} />
           <Route path="/poll/:poll_id/result" element={<ResultPoll />} />
