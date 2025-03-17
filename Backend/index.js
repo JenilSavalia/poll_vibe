@@ -193,6 +193,41 @@ app.get('/poll/:poll_id', async (req, res) => {
 })
 
 
+// Get All Polls for a User
+app.get('/user/polls', requireAuth, async (req, res) => {
+
+    const user = req.auth;
+
+    // res.json({ ID: user.userId })
+
+    try {
+        const findPoll = await User.find({ clerkUserId: user.userId }).populate("UserPoll")
+
+        if (!findPoll) {
+            return res.status(404).json({ error: 'Polls not found' });
+        }
+
+        // const now = new Date();
+        // const endDate = new Date(findPoll.endDate);
+        // console.log(new Date().toISOString());
+
+
+        // if (now > endDate) {
+        //     // If endDate has passed, update poll_status to false
+        //     findPoll.poll_status = false;
+        //     await findPoll.save();
+
+        //     return res.status(400).json({ error: 'This poll has ended.' });
+        // }
+
+        res.json({ PollData: findPoll, user })
+    } catch (err) {
+        res.status(500).json({ Error: err.message })
+    }
+
+})
+
+
 
 
 // Post the vote for multiple Choice Question
